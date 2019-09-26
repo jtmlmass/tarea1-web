@@ -2,10 +2,13 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.FormElement;
 import org.jsoup.safety.Whitelist;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import static spark.Spark.get;
@@ -60,17 +63,29 @@ public class tarea1 {
             //        parámetro llamado asignatura y valor practica1 y un header llamado
             //        matricula con el valor correspondiente a matrícula asignada. Debe
             //        mostrar la respuesta por la salida estándar.
+            String asignatura = "ProgramaciónWeb";
+            String practica1 = "Práctica1";
+            String matricula = "2014-1130";
+
+            Map<String, String> postData = new HashMap<>();
+            postData.put("asignatura", "practica1");
+
             for(Element form : formElements){
-                if(form.attr("type").equals("post")){
-                    String postUrl = form.attr("action");
-                    String asignatura = "ProgramaciónWeb";
-                    String practica1 = "Práctica1";
-                    String matricula = "2014-1130";
-                    String url = doc.baseUri() +  postUrl + "/" + asignatura + "/" + practica1;
-                    System.out.println(url);
-                    Document response = Jsoup
-                            .connect(url).header("Matricula", matricula).timeout(5000).post();
-                    System.out.println(response.text());
+                if(form.attr("method").equals("post")){
+                    Connection formConnect = ((FormElement)form).submit();
+                    formConnect
+                            .userAgent("Brave Browser")
+                            .timeout(10 * 1000)
+                            .data(postData)
+                            .header("Matricula", matricula)
+                            .method(Connection.Method.POST)
+                            .timeout(5000)
+                            .post();
+                    Connection.Response respuesta = formConnect.execute();
+                    System.out.println("\n --- Respuesta de Post al Form " + form.attr("action")+ ": ");
+                    System.out.println("\t\t -- Body:\n " + respuesta.body());
+                    System.out.println("\t\t -- Status code: " + respuesta.statusCode());
+                    System.out.println("\t\t -- Status message: " + respuesta.statusMessage());
                 }
             }
         }
