@@ -13,5 +13,9 @@ public class tarea1 {
         //Parte A Indicar la cantidad de lineas del recurso retornado
         int lineas = doc.html().split(System.getProperty("line.separator")).length;
         System.out.println("Cantidad de lineas en el Recurso retornado: " + lineas);
+
+        //Parte B Indicar la cantidad de párrafos (p) que contiene el documento HTML
+        Elements pElements = doc.select("p");
+        System.out.println("Cantidad de Parrafos: " + pElements.size());
     }
 }
