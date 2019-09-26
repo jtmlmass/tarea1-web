@@ -27,5 +27,16 @@ public class tarea1 {
         System.out.println("Cantidad de Form elements por Get: " + formElementsGet.size());
         Elements formElementsPost = doc.select("form[method~=post]");
         System.out.println("Cantidad de Form elements por Post: " + formElementsPost.size());
+
+        //Parte E Para cada formulario mostrar los campos del tipo input y su respectivo tipo que contiene en el documento HTML
+        Elements formElements = doc.select("form");
+        System.out.println("Formularios:");
+        for(Element form : formElements){
+            System.out.println(" - Form " + form.id());
+            Elements inputElements = formElements.select("input");
+            for(Element input : inputElements){
+                System.out.println("\tInput type " + input.attr("type"));
+            }
+        }
     }
 }
