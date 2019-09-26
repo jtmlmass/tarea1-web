@@ -63,8 +63,6 @@ public class tarea1 {
             //        parámetro llamado asignatura y valor practica1 y un header llamado
             //        matricula con el valor correspondiente a matrícula asignada. Debe
             //        mostrar la respuesta por la salida estándar.
-            String asignatura = "ProgramaciónWeb";
-            String practica1 = "Práctica1";
             String matricula = "2014-1130";
 
             Map<String, String> postData = new HashMap<>();
