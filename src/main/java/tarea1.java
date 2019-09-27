@@ -16,10 +16,10 @@ import static spark.Spark.post;
 
 public class tarea1 {
     public static void main(String[] args) throws IOException {
-        //System.out.println("Ingrese la URL: ");
-        //Scanner in = new Scanner(System.in);
-        //String mainURL = in.nextLine();
-        String mainURL = "http://itachi.avathartech.com:4567/opcion2.html";
+        System.out.println("Ingrese la URL: ");
+        Scanner in = new Scanner(System.in);
+        String mainURL = in.nextLine();
+        
         boolean valid = Jsoup.isValid(Jsoup.connect(mainURL).get().html(), Whitelist.basic());
         if(valid){
             System.out.println("La URL ingresada no es valida. " + valid);
